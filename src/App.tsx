@@ -1,29 +1,48 @@
+import { useState } from 'react'
+import { Calendar } from '@mantine/dates'
 import CountUp from 'react-countup'
-import { differenceInYears } from 'date-fns'
+import { differenceInYears, addYears } from 'date-fns'
 
 import './App.css'
 
-// const SECONDS_IN_YEAR = 31_536_000
-
 export default function App() {
-  const birthdate = new Date('2002-11-24').getTime()
+  const [birthdate, setBirthdate] = useState<Date | null>(null)
 
-  const prevBirthday = new Date('2021-11-24').getTime()
-  const nextBirthday = new Date('2022-11-24').getTime()
+  let age
+  let secondsInYear
 
-  const now = new Date('2022-11-24 02:50').getTime()
+  if (birthdate !== null) {
+    let ageInt
+    let agePart
+    let prevBirthday
+    let nextBirthday
 
-  const age =
-    differenceInYears(now, birthdate) + ((now - prevBirthday) / (nextBirthday - prevBirthday))
+    let now = new Date('2022-11-24 00:00+03')
+
+    ageInt = differenceInYears(now, birthdate)
+
+    prevBirthday = addYears(birthdate, ageInt)
+    nextBirthday = addYears(birthdate, ageInt + 1)
+
+    secondsInYear = (+nextBirthday - +prevBirthday) / 1000
+
+    agePart = (+now - +prevBirthday) / (secondsInYear * 1000)
+
+    age = ageInt + agePart
+  }
 
   return (
     <div className="App">
-      <CountUp
-        start={age}
-        end={age + 1}
-        duration={(nextBirthday - prevBirthday) / 1000}
-        decimals={9}
-      />
+      {birthdate === null ? (
+        <Calendar value={birthdate} onChange={setBirthdate} />
+      ) : (
+        <CountUp
+          start={age}
+          end={(age as number) + 1}
+          duration={secondsInYear}
+          decimals={9}
+        />
+      )}
     </div>
   )
 }
