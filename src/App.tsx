@@ -1,9 +1,9 @@
+import { MantineProvider, Center } from '@mantine/core'
 import { Calendar } from '@mantine/dates'
 import { useLocalStorage } from '@mantine/hooks'
 import { parseISO, formatISO } from 'date-fns'
 import Age from './components/Age'
-
-import './App.css'
+import './styles'
 
 export default function App() {
   const [birthdate, setBirthdate] = useLocalStorage<Date | null>({
@@ -14,12 +14,16 @@ export default function App() {
   })
 
   return (
-    <div className="App">
-      {birthdate === null ? (
-        <Calendar value={birthdate} onChange={setBirthdate} />
-      ) : (
-        <Age birthdate={birthdate} />
-      )}
-    </div>
+    <MantineProvider
+      theme={{ fontFamilyMonospace: 'Azeret Mono' }}
+      withNormalizeCSS>
+      <Center sx={{ height: '100vh' }}>
+        {birthdate === null ? (
+          <Calendar value={birthdate} onChange={setBirthdate} />
+        ) : (
+          <Age birthdate={birthdate} />
+        )}
+      </Center>
+    </MantineProvider>
   )
 }
