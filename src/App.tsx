@@ -1,12 +1,17 @@
-import { useState } from 'react'
 import { Calendar } from '@mantine/dates'
+import { useLocalStorage } from '@mantine/hooks'
+import { parseISO, formatISO, differenceInYears, addYears } from 'date-fns'
 import CountUp from 'react-countup'
-import { differenceInYears, addYears } from 'date-fns'
 
 import './App.css'
 
 export default function App() {
-  const [birthdate, setBirthdate] = useState<Date | null>(null)
+  const [birthdate, setBirthdate] = useLocalStorage<Date | null>({
+    key: 'birthdate',
+    defaultValue: null,
+    serialize: (v) => (v !== null ? formatISO(v) : ''),
+    deserialize: (v) => (v ? parseISO(v) : null),
+  })
 
   let age
   let secondsInYear
