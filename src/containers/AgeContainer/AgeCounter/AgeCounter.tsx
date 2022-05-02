@@ -2,11 +2,11 @@ import CountUp from 'react-countup'
 import { Title, Text } from '@mantine/core'
 import { differenceInYears, addYears } from 'date-fns'
 
-interface AgeProps {
+interface AgeCounterProps {
   birthdate: Date
 }
 
-export default function Age({ birthdate }: AgeProps) {
+export default function AgeCounter({ birthdate }: AgeCounterProps) {
   //
   const now = new Date()
 
