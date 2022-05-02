@@ -7,9 +7,9 @@
     "build": "react-scripts build"
   },
   "dependencies": {
-    "@mantine/core": "^4.2.1",
-    "@mantine/dates": "^4.2.1",
-    "@mantine/hooks": "^4.2.1",
+    "@mantine/core": "^4.2.2",
+    "@mantine/dates": "^4.2.2",
+    "@mantine/hooks": "^4.2.2",
     "@tabler/icons": "^1.68.0",
     "@types/node": "^16.7.13",
     "@types/react": "^17.0.33",
